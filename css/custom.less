@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+// Mixins
+.center {
+  margin: auto;
+}
+
+.noUnderline:hover {
+  text-decoration: none;
+}
+
+.separator(@amt: 10px) {
+  margin-bottom: @amt;
+}
+
+// Variables
+
+
+// Styles
+body {
+  background: rgba(250,250,250,.5);
+}
+
+a, a:hover {
+  color: rgb(94,94,94);
+}
+
+.container-fluid {
+  padding: 0px;
+}
+
+.banner {
+  width: 100%;
+  background-color: rgb(246, 132, 17);
+  background-image: url('../images/footer.png');
+  border-bottom: 4px ridge rgb(226, 112, 0);
+  -moz-box-shadow: 0px 1px 10px #888;
+  -webkit-box-shadow: 0px 1px 10px #888;
+  box-shadow: 0px 1px 10px #888;
+}
+
+.loginForm {
+  .center;
+  margin-top: 50px;
+  padding: 15px;
+  background: rgb(255,255,255);
+  width: 425px;
+  border: 2px solid white;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  -moz-box-shadow: 1px 1px 10px #888;
+  -webkit-box-shadow: 1px 1px 10px #888;
+  box-shadow: 1px 1px 10px #888;
+}
+
+.formFooter {
+  margin-top: 15px;
+  .center;
+  width: 300px;
+}
+
+.formFooter span {
+  font-size: 14pt;
+}
+
+.loginSeparator {
+  .separator(15px);
+}
