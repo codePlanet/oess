@@ -1,0 +1,55 @@
+<div>
+	<div class="navbar mainNav">
+    	<div class="navbar-inner">
+        	<ul class="nav">
+        		<li class="firstNav" data-bind="event: { mouseover: subMenuIn, mouseout: subMenuOut}">
+        		<a href="#/first">Goto First</a></li>
+        		<li class="secondNav" data-bind="event: { mouseover: subMenuIn, mouseout: subMenuOut}">
+        		<a href="#/second">Goto Second</a></li>
+        		<li class="customerNav" data-bind="event: { mouseover: subMenuIn, mouseout: subMenuOut}">
+        		<a href="#/customers">Customers</a></li>
+        		<li class="patientNav" data-bind="event: { mouseover: subMenuIn, mouseout: subMenuOut}">
+        		<a href="#/patients">Patients</a></li>
+      		</ul>
+		</div>        
+    </div>
+    <div class="navbar hoverNav first">
+    	<div class="navbar-inner">
+        	<ul class="nav">
+        		<li class=""><a href="#/first/add">Add First</a></li>
+        		<li class=""><a href="#/first/manage">Manage First</a></li>
+      		</ul>
+		</div>        
+    </div>
+    <div class="navbar hoverNav second">
+    	<div class="navbar-inner">
+        	<ul class="nav">
+        		<li class=""><a href="#/second/add">Add Second</a></li>
+        		<li class=""><a href="#/second/manage">Manage Second</a></li>
+      		</ul>
+		</div>        
+    </div>
+    <div class="navbar hoverNav customer">
+    	<div class="navbar-inner">
+        	<ul class="nav">
+        		<li class=""><a href="#/first/add">Add Customers</a></li>
+        		<li class=""><a href="#/first/manage">Manage Customers</a></li>
+      		</ul>
+		</div>        
+    </div>
+    <div class="navbar hoverNav patient">
+    	<div class="navbar-inner">
+        	<ul class="nav">
+        		<li class=""><a href="#/first/add">Add Patients</a></li>
+        		<li class=""><a href="#/first/manage">Manage Patients</a></li>
+      		</ul>
+		</div>        
+    </div>
+    <div class="viewHolder container-fluid page-host">
+        <!--ko compose: { 
+            model: router.activeItem,
+            afterCompose: router.afterCompose,
+            transition:'entrance'
+        }--><!--/ko-->
+    </div>
+</div>

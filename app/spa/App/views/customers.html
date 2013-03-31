@@ -1,0 +1,42 @@
+<div>
+	<!-- Form to add new customer -->
+	<form class="form-inline customerForm">
+		<span>Add New Customer</span>
+		<input type="text" data-bind="value: inputName" placeholder="Name" />
+		<input type="text" class="input-small" data-bind="value: inputDOB, datepicker: {dateFormat: 'yy-mm-dd'}" placeholder="Date of Birth" />
+		<input type="text" class="input-small" data-bind="value: inputPhone" placeholder="Phone" />
+		<input type="text" data-bind="value: inputEmail" placeholder="Email" />
+		<button type="submit" class="btn btn-primary" data-bind="click: submitCustomer">Add</button>
+	</form>
+	<!-- 
+		Table displays current customers along with a delete button for each row. The foreach goes in the
+		parent element of the repeating elements. In this case, the parent element is the tbody, and the
+		repeating element is the tr which stands for table row. That is for each customer, a row in the
+		table is created and the 5 columns are added. The last column is a delete button. This button
+		binds the removeCustomer function to the click action of the button. Each variable and function
+		within a foreach loop is local only to that loop. Therefore in order to bind the click action
+		to the main module's removeCustomer function, we need to append $root to the function. When clicked
+		the button sends the customer element of the array to the function. That's how Durandal knows
+		which customer to delete. 
+	-->
+	<table class="table table-hover table-bordered customerTable">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>DOB</th>
+				<th>Phone Number</th>
+				<th>Email</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody data-bind="foreach: customers">
+			<tr>
+				<td data-bind="text: name"></td>
+				<td data-bind="text: dob"></td>
+				<td data-bind="text: phone"></td>
+				<td data-bind="text: email"></td>
+				<td><button class="btn btn-danger btn-mini" data-bind="click: $root.removeCustomer">Delete</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,130 @@
+/**************************************************************************************************
+ *  Dashboard
+ *************************************************************************************************/
+h2 {
+	text-align: center;
+}
+.todaySchedule {
+	width: 80%;
+	margin: auto;
+}
+
+/**************************************************************************************************
+ *  Schedule 
+ *************************************************************************************************/
+.schedulePills {
+	width: 210px;
+	margin: auto;
+	padding: 20px;
+}
+
+.schedulePills .active > a,
+.nav-pills .active > a:hover {
+	background-color: rgb(114, 198, 48);
+}
+
+.employeeList {
+	border-left: 2px ridge rgb(200, 200, 200);
+	width: 200px;
+	position: absolute;
+	right: 0;
+	top: 75px;
+}
+
+/* Arrow to open/close employees */
+.openClose {
+	position: absolute;
+	left: -41px;
+}
+
+.openClose img {
+	opacity: .3;
+}
+
+.openClose img:hover {
+	opacity: 1;
+}
+
+.openClose .open{
+	display: none;
+}
+
+.image {
+	width: 100px;
+	margin: auto;
+	padding: 5px;
+}
+
+.image img {
+	width: 100px;
+}
+
+/* Schedule */
+.dailySchedule {
+	width: 67%;
+	margin-left: 30px;
+	padding-top: 3px;
+	overflow-x: auto;
+}
+
+.dailySchedule .scheduleHolder {
+	height: 200px;
+	width: 1222px;
+	border-left: 1px ridge rgba(114,198,48, .25);
+	border-right: 1px ridge rgba(114,198,48, .25);
+	position: relative;
+}
+
+.timeSlots {
+	height: 200px;
+	position:absolute;
+}
+
+.timeSlot {
+	display: inline-block;
+	height: 100%;
+	width: 50px;
+	border: 1px solid rgba(114,198,48, .25);
+	border-bottom: none;
+	border-right: none;
+	margin: -2px;
+}
+
+#scheduleDate {
+	font-size: 9px;
+	margin-top: 25px;
+	margin-left: 20px;
+}
+
+.currentDate {
+	width: 67%;
+	height: 30px;
+	text-align: center;
+	margin-top: 25px;
+	margin-left: 30px;
+}
+
+.times {
+	width: 1222px;
+}
+.times div {
+	display: inline-block;
+	width: 51px;
+	margin: -2px;
+	text-align: center;
+}
+
+.employees .name {
+	background-image: -webkit-linear-gradient(top, rgb(119,203,53), rgb(109,193,43));
+	border: 1px solid rgb(94,178,28);
+	color: rgb(245,245,245);
+	font-weight: bold;
+	font-size: 12pt;
+	text-shadow: 1px 1px 2px rgb(100,100,100);
+	cursor: default;
+}
+
+.employees .details {
+	display: none;
+	border-bottom: 1px solid rgb(247,142,27);
+}

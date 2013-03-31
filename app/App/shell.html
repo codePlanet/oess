@@ -1,0 +1,22 @@
+<div>
+	<div class="navbar mainNav">
+    	<div class="navbar-inner">
+        	<ul class="nav">
+        		<li class="scheduleNav navItem"><a href="#/schedule">Schedule</a></li>
+        		<li class="employeeNav navItem"><a href="#/employees">Employees</a></li>
+        		<li class="swapNav navItem"><a href="#/swaprequests">Swap Requests</a></li>
+        		<li class="reviewNav navItem"><a href="#/reviews">Reviews</a></li>
+        		<li class="managementNav navItem"><a href="#/management">Management</a></li>
+        		<li class="reportNav navItem"><a href="#/reports">Reports</a></li>
+        		<li class="formNav navItem"><a href="#/forms">Forms</a></li>
+      		</ul>
+		</div>        
+    </div>
+    <div class="viewHolder container-fluid page-host">
+        <!--ko compose: { 
+            model: router.activeItem,
+            afterCompose: router.afterCompose,
+            transition:'entrance'
+        }--><!--/ko-->
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<div>
+	<div class="sub-nav">
+		<a href="#"><img class="logo" src="../images/logo.png" /></a>
+		<div class="schedulePills">
+			<ul class="nav nav-pills">
+				<li class="active"><a href="#">Daily</a></li>
+				<li><a href="#">Weekly</a></li>
+				<li><a href="#">Monthly</a></li>
+			</ul>
+		</div>
+    </div>
+    <div class="row-fluid">
+    	<div class="span2">
+    <div id="scheduleDate" data-bind="value: scheduleDate, datepicker: true"></div>
+   	</div>
+   	<div class="span10">
+   		<h3 class="currentDate" data-bind="text: formattedDate"></h3>
+	    <div class="dailySchedule">
+	    	<div class="timesHolder">
+		   		<div class="times">
+		   			<div>12am</div>
+		   			<div>1am</div>
+		   			<div>2am</div>
+		   			<div>3am</div>
+		   			<div>4am</div>
+		   			<div>5am</div>
+		   			<div>6am</div>
+		   			<div>7am</div>
+		   			<div>8am</div>
+		   			<div>9am</div>
+		   			<div>10am</div>
+		   			<div>11am</div>
+		   			<div>12pm</div>
+		   			<div>1pm</div>
+		   			<div>2pm</div>
+		   			<div>3pm</div>
+		   			<div>4pm</div>
+		   			<div>5pm</div>
+		   			<div>6pm</div>
+		   			<div>7pm</div>
+		   			<div>8pm</div>
+		   			<div>9pm</div>
+		   			<div>10pm</div>
+		   			<div>11pm</div>
+		   		</div>
+	   		</div>
+	   		<div data-bind="foreach: schedules">
+		    	<div class="scheduleHolder">
+		    		<div class="timeSlots">
+			    		<div id="12to1AM"  class="timeSlot"></div>
+						<div id="1to2AM"   class="timeSlot"></div>
+						<div id="2to3AM"   class="timeSlot"></div>
+						<div id="3to4AM"   class="timeSlot"></div>
+						<div id="4to5AM"   class="timeSlot"></div>
+						<div id="5to6AM"   class="timeSlot"></div>
+						<div id="6to7AM"   class="timeSlot"></div>
+						<div id="7to8AM"   class="timeSlot"></div>
+				    	<div id="8to9AM"   class="timeSlot"></div>
+						<div id="9to10AM"  class="timeSlot"></div>
+						<div id="10to11AM" class="timeSlot"></div>
+						<div id="11to12AM" class="timeSlot"></div>
+						<div id="12to1PM"  class="timeSlot"></div>
+						<div id="1to2PM"   class="timeSlot"></div>
+						<div id="2to3PM"   class="timeSlot"></div>
+						<div id="3to4PM"   class="timeSlot"></div>
+						<div id="4to5PM"   class="timeSlot"></div>
+						<div id="5to6PM"   class="timeSlot"></div>
+						<div id="6to7PM"   class="timeSlot"></div>
+						<div id="7to8PM"   class="timeSlot"></div>
+						<div id="8to9PM"   class="timeSlot"></div>
+						<div id="9to10PM"  class="timeSlot"></div>
+						<div id="10to11PM" class="timeSlot"></div>
+						<div id="11to12AM" class="timeSlot"></div>
+					</div>
+					<div class="employeeSchedules" data-bind="foreach: employees">
+						<div>
+							<div data-bind="text: name"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+	    </div>
+    </div></div>
+    <div class="employeeList">
+    	<div class="openClose">
+    		<a class="closed" href="#"><img src="../images/right_arrow.png" /></a>
+    		<a class="open" href="#"><img src="../images/left_arrow.png" /></a>
+    	</div>
+    	<div class="image">
+    		<img src="../images/icons/person3.png" />
+    	</div>
+    	<div class="employees" data-bind="foreach: employees">
+    		<div class="employee">
+    			<div class="name" data-bind="text: fullName, click: $root.toggleEmployee"></div>
+    			<div class="details" data-bind="text: department"></div>
+    		</div>
+    	</div>
+    </div>
+</div>

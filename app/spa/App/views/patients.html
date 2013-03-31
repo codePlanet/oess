@@ -1,0 +1,30 @@
+<div>
+	<body>
+		<form class="form-inline patientForm well">
+			<span>Add New Patient</span>
+			<p>
+				<input type="text" data-bind="value: inputLastName" placeholder="Last Name" />
+				<input type="text" data-bind="value: inputMiddleName" placeholder="Middle Name" />
+				<input type="text" data-bind="value: inputFirstName" placeholder="First Name" />
+			</p>
+			<p>
+				<input type="text" data-bind="value: inputAlias" placeholder="Alias" />
+				<select data-bind="value:inputGender">
+					<option value="" disabled selected style="display:none;">Select Gender</option>
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
+				</select>
+				<input type="text" class="date input-small" data-bind="value: inputDOB" placeholder="Date of Birth" />
+			</p>
+			<p>
+				<input type="text" data-bind="value: inputSSN" placeholder="SSN" />
+			</p>
+			
+			<!--
+			<input type="text" class="input-small" data-bind="value: inputPhone" placeholder="Phone" />
+			<input type="text" data-bind="value: inputEmail" placeholder="Email" />
+			<button type="submit" class="btn btn-primary" data-bind="click: submitCustomer">Add</button>
+			-->
+		</form>
+	</body>
+</div>
