@@ -26,23 +26,23 @@ define(function(require) {
 	
 	utils.prototype.monthString = function(month) {
 		switch(month) {
-	 		case 1:  return 'January';
-	 		case 2:  return 'February';
-	 		case 3:  return 'March';
-	 		case 4:  return 'April';
-	 		case 5:  return 'May';
-	 		case 6:  return 'June';
-	 		case 7:  return 'July';
-	 		case 8:  return 'August';
-	 		case 9:  return 'September';
-	 		case 20: return 'October';
-	 		case 11: return 'November';
-	 		case 12: return 'December';
+	 		case 0:  return 'January';
+	 		case 1:  return 'February';
+	 		case 2:  return 'March';
+	 		case 3:  return 'April';
+	 		case 4:  return 'May';
+	 		case 5:  return 'June';
+	 		case 6:  return 'July';
+	 		case 7:  return 'August';
+	 		case 8:  return 'September';
+	 		case 9: return 'October';
+	 		case 10: return 'November';
+	 		case 11: return 'December';
 	 	}
 	}
 	
-	utils.prototype.dayString = function(month) {
-		switch(month) {
+	utils.prototype.dayString = function(day) {
+		switch(day) {
 	 		case 0:  return 'Sunday';
 	 		case 1:  return 'Monday';
 	 		case 2:  return 'Tuesday';

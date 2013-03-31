@@ -10,16 +10,29 @@ define(function(require) {
 	var system = require('durandal/system');			// System logger
 	var custom = require('durandal/customBindings');	// Custom bindings
 	//var Backend = require('modules/moduleTemplate');	// Module
-	var Utils = require('dudrandal/utils');
+	var Utils = require('modules/utils');
 	var utils = new Utils();
 	
 	/*********************************************************************************************** 
 	 * KO Observables
 	 **********************************************************************************************/
+	var scheduleDate = ko.observable();
 
 	/*********************************************************************************************** 
 	 * KO Computed Functions
 	 **********************************************************************************************/
+	var formattedDate = ko.computed(function() {
+		var date = scheduleDate();
+		if(date == undefined)
+			date = new Date();
+		else
+			date = new Date(scheduleDate());
+		
+		var day = utils.dayString(date.getDay());
+		var month = utils.monthString(date.getMonth());
+		var date = date.getDate();
+		return day + ", " + month + " " + date;
+	});
 
 	/*********************************************************************************************** 
 	 * ViewModel
@@ -31,7 +44,8 @@ define(function(require) {
 		/******************************************************************************************* 
 		 * Attributes
 		 *******************************************************************************************/
-		
+		scheduleDate: scheduleDate,
+		formattedDate: formattedDate,
 		/******************************************************************************************* 
 		 * Methods
 		 *******************************************************************************************/
@@ -39,7 +53,7 @@ define(function(require) {
 		viewAttached: function() {
 			// Change the selected nav item 
 			$('.navItem').removeClass('active');
-			$('<Your nav item in the view>').addClass('active');
+			$('.scheduleNav').addClass('active');
 		},
 		// Loads when view is loaded
 		activate: function(data) {
