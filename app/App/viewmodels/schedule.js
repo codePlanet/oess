@@ -17,6 +17,8 @@ define(function(require) {
 	 * KO Observables
 	 **********************************************************************************************/
 	var scheduleDate = ko.observable();
+	var schedules = ko.observableArray([]);
+	var employees = ko.observableArray([]);
 
 	/*********************************************************************************************** 
 	 * KO Computed Functions
@@ -46,6 +48,8 @@ define(function(require) {
 		 *******************************************************************************************/
 		scheduleDate: scheduleDate,
 		formattedDate: formattedDate,
+		schedules: schedules,
+		employees: employees,
 		/******************************************************************************************* 
 		 * Methods
 		 *******************************************************************************************/
@@ -54,17 +58,54 @@ define(function(require) {
 			// Change the selected nav item 
 			$('.navItem').removeClass('active');
 			$('.scheduleNav').addClass('active');
+			
+			var windowHeight = parseInt($(window).height());
+			var headerHeight = parseInt($('.mainNav').height()) + parseInt($('.sub-nav').height());
+			var totalHeight = windowHeight - headerHeight;
+			$('.employeeList').height(totalHeight - 2);
 		},
 		// Loads when view is loaded
 		activate: function(data) {
-			// Code here
+			var self = this;
 			
-			// If you add any asynchronous code, make sure you return it. If you need to add multiple
-			// asynchronous code, return the functions chained together. If you don't return them,
-			// then Durandal will not wait for them to finish before loading the rest of the page.
-			// There might be issues when updating observables.
-			// Ex:
-			// return .get().getJSON().post();
+			self.employees([
+				{
+					fullName: 'Bobby Smith',
+					department: 'Sales'
+				},
+				{
+					fullName: 'John Conner',
+					department: 'Maintenance'
+				}
+			]);
+			
+			self.schedules([
+				{
+					employees: ko.observableArray([
+						{
+							name: 'Bobby Smith',
+							start: ko.observable('10:00'),
+							startOffset: ko.observable('500px'),
+							end: ko.observable('12:00'),
+							endOffset: ko.observable('100px')
+						},
+						{
+							name: 'John Conner',
+							start: ko.observable('11:00'),
+							startOffset: ko.observable('550px'),
+							end: ko.observable('14:00'),
+							endOffset: ko.observable('150px')
+						}
+					])
+				},
+				{
+					employees: ko.observableArray([])
+				}
+			]);
+		},
+		toggleEmployee: function(data, el) {
+			el = el.currentTarget;
+			$(el).next().slideToggle(300);
 		}
 	};
 });
