@@ -6,20 +6,10 @@
  *************************************************************************************************/
 define(function(require) {
 	/**************************************************************************************************
-	 * Customer Structure
-	 * 
-	 * Place any structures that you need here. A structure is basically an object that acts like an 
-	 * array in that it only has variables. There are no methods. An example of a structure is the
-	 * Customer structure below:
-	 *  
-	 * function Customer(data) {
-	 *	this.name  = ko.observable(data.name);
-	 *	this.dob   = ko.observable(data.dob.substring(5,7) + '/' 
-	 *		+ data.dob.substring(8,10) + '/' + data.dob.substring(0,4));
-	 *	this.phone = ko.observable(data.phone);
-	 * 	this.email = ko.observable(data.email);
-	 * };
+	 * Includes
 	 *************************************************************************************************/
+	var system = require('durandal/system');
+	
 	function utils (parameters) {
 		// place attributes here
 	}
@@ -51,6 +41,20 @@ define(function(require) {
 	 		case 5:  return 'Friday';
 	 		case 6:  return 'Saturday';
 	 	}
+	}
+	
+	utils.prototype.scheduleOverlap = function(e1, e2) {
+		var start1 = Date.parse(e1.startTime());
+		var end1   = Date.parse(e1.endTime());
+		var start2 = Date.parse(e2.startTime());
+		var end2   = Date.parse(e2.endTime());
+
+		if(start1.equals(end2) || start2.equals(end1))
+			return false;
+		if (start1.between(start2, end2) || start2.between(start1, end1))
+			return true;
+			
+		return false;
 	}
 	
 	return utils;

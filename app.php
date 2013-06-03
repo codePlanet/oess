@@ -9,6 +9,7 @@
 	<!-- Javascript --> 
 	<script type="text/javascript" src="js/less.js"></script>
 	<script data-main="js/main" src="js/require.js"></script>
+	
 </head>
 <body>
 	<div class="container-fluid">

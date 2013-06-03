@@ -14,7 +14,7 @@ define(function(require) {
             router.mapAuto('viewmodels');
             
             // Set initial view
-            return router.activate('dashboard');
+            return router.activate('schedule');
             
         },
     };

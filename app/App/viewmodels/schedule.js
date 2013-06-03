@@ -7,17 +7,23 @@ define(function(require) {
 	/*********************************************************************************************** 
 	 * Includes*
 	 **********************************************************************************************/
+	var app = require('durandal/app');
 	var system = require('durandal/system');			// System logger
 	var custom = require('durandal/customBindings');	// Custom bindings
 	//var Backend = require('modules/moduleTemplate');	// Module
+	var Structures = require('modules/structures');
+	var structures = new Structures();
 	var Utils = require('modules/utils');
 	var utils = new Utils();
+	var modal = require('modals/modals');
+	var self;
 	
 	/*********************************************************************************************** 
 	 * KO Observables
 	 **********************************************************************************************/
-	var scheduleDate = ko.observable();
-	var schedules = ko.observableArray([]);
+	var d = new Date().addMonths(1);
+	var scheduleDate = ko.observable(d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear());
+	var schedule = ko.observableArray([]);
 	var employees = ko.observableArray([]);
 
 	/*********************************************************************************************** 
@@ -48,7 +54,7 @@ define(function(require) {
 		 *******************************************************************************************/
 		scheduleDate: scheduleDate,
 		formattedDate: formattedDate,
-		schedules: schedules,
+		schedule: schedule,
 		employees: employees,
 		/******************************************************************************************* 
 		 * Methods
@@ -66,46 +72,109 @@ define(function(require) {
 		},
 		// Loads when view is loaded
 		activate: function(data) {
-			var self = this;
+			self = this;
+			
+			self.schedule([]);
 			
 			self.employees([
-				{
-					fullName: 'Bobby Smith',
-					department: 'Sales'
-				},
-				{
-					fullName: 'John Conner',
-					department: 'Maintenance'
-				}
-			]);
-			
-			self.schedules([
-				{
-					employees: ko.observableArray([
-						{
-							name: 'Bobby Smith',
-							start: ko.observable('10:00'),
-							startOffset: ko.observable('500px'),
-							end: ko.observable('12:00'),
-							endOffset: ko.observable('100px')
-						},
-						{
-							name: 'John Conner',
-							start: ko.observable('11:00'),
-							startOffset: ko.observable('550px'),
-							end: ko.observable('14:00'),
-							endOffset: ko.observable('150px')
-						}
-					])
-				},
-				{
-					employees: ko.observableArray([])
-				}
-			]);
+				new structures.Employee({
+					first_name: 'Bobby',
+					last_name: 'Smith',
+					department: "Sales",
+					date: '2013-04-09',
+					start_time: '10:00:00',
+					end_time: '12:00:00',
+					level: 0
+				}),
+				new structures.Employee({
+					first_name: 'John',
+					last_name: 'Conner',
+					department: "Maintenance",
+					date: '2013-04-09',
+					start_time: '12:00:00',
+					end_time: '14:00:00',
+					level: 0
+				}),
+				new structures.Employee({
+					first_name: 'Betty',
+					last_name: 'Sue',
+					department: "Sales",
+					date: '2013-04-09',
+					start_time: '11:30:00',
+					end_time: '14:00:00',
+					level: 0
+				})
+			]);				
 		},
 		toggleEmployee: function(data, el) {
+			// Toggle details
 			el = el.currentTarget;
-			$(el).next().slideToggle(300);
+			$(el).parent().next().find('.details').animate({height: 'toggle', opacity: 'toggle'}, 400);
+			// Change icon
+			var i = $(el).parent().find('i');
+			if(i.attr('class').indexOf('icon-plus') >= 0)
+				i.removeClass("icon-plus").addClass("icon-minus");
+			else
+				i.removeClass("icon-minus").addClass("icon-plus");
+		},
+		addEmployee: function(data) {
+			var go = true;
+			// Check if employee already added
+			var added = _.filter(schedule(), function(item) {
+				return item.firstName() == data.firstName() && item.lastName() == data.lastName();
+			});
+			if(added.length > 0) {
+				app.showMessage("That employee is already added on the schedule for this day." +
+								"Do you want to add them again?", 
+								"Duplicate Schedule", 
+								['Yes', 'No'])
+				.then(function(result) {
+					if(result == "Yes")
+						self.showSchedule(data);				
+				});
+			}
+			else {
+				self.showSchedule(data);
+			}
+		},
+		showSchedule: function(data) {
+			modal.showSchedule(data, "Add Employee").then(function(close) {
+				if(close.result == 'Add') {
+					// Add employee to schedule
+					system.log(data);
+					var s = new structures.Schedule({
+						first_name: data.firstName(),
+						last_name: data.lastName(),
+						department: data.department(),
+						start_time: data.startTime(),
+						end_time: data.endTime(),
+						level: 0
+					});
+					
+						// Level
+						$.each(schedule(), function(k, v) {
+							var overlap = utils.scheduleOverlap(s, v);
+							if(overlap && v.level() == s.level()) {
+								var level = parseInt(s.level());
+								level += 24;
+								s.level(level + "px");
+							}
+						});
+						schedule.push(s);	
+				}
+			});
+		},
+		activeFormat: function(data, e) {
+			e = $(e.currentTarget);
+			var parent = e.parent();
+			parent.find('li').each(function(k, v) {
+				$(v).removeClass();
+			});
+			e.addClass('active');
+		},
+		filterEmployees: function(data, e) {
+			e = $(e.currentTarget);
+			system.log(e.attr('time'));
 		}
 	};
 });

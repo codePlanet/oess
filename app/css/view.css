@@ -30,6 +30,36 @@ h2 {
 	right: 0;
 	top: 75px;
 }
+.employeeList .name { height: 21px; }
+.employeeList .employee { clear: both; }
+.employeeList .employee .details { border-bottom: 1px solid rgb(247,142,27); }
+.employeeList .details div { margin-left: 5px; }
+.employeeList .details div span:nth-child(2) {
+	position: absolute;
+	right: 5px;
+}
+.employeeList .details span {
+	color: rgb(83, 81, 81);
+	font-size: 15px;
+}
+
+.employeeSchedules { position: relative; }
+
+.employeeSchedules > div {
+	border: 1px solid black;
+	position: absolute;
+	background-image: -webkit-linear-gradient(top, rgb(119,203,53), rgb(109,193,43));
+	border: 1px solid rgb(94,178,28);
+	color: rgb(245,245,245);
+	font-weight: bold;
+	font-size: 12pt;
+	text-shadow: 1px 1px 2px rgb(100,100,100);
+	cursor: pointer;
+}
+
+.employeeSchedules > div > div {
+	height: 20px;
+}
 
 /* Arrow to open/close employees */
 .openClose {
@@ -126,5 +156,4 @@ h2 {
 
 .employees .details {
 	display: none;
-	border-bottom: 1px solid rgb(247,142,27);
 }

@@ -1,11 +1,11 @@
-<div>
+<div class="schedule">
 	<div class="sub-nav">
 		<a href="#"><img class="logo" src="../images/logo.png" /></a>
 		<div class="schedulePills">
 			<ul class="nav nav-pills">
-				<li class="active"><a href="#">Daily</a></li>
-				<li><a href="#">Weekly</a></li>
-				<li><a href="#">Monthly</a></li>
+				<li class="active" data-bind="click: activeFormat"><a href="#">Daily</a></li>
+				<li data-bind="click: activeFormat"><a href="#">Weekly</a></li>
+				<li data-bind="click: activeFormat"><a href="#">Monthly</a></li>
 			</ul>
 		</div>
     </div>
@@ -44,37 +44,37 @@
 		   			<div>11pm</div>
 		   		</div>
 	   		</div>
-	   		<div data-bind="foreach: schedules">
+	   		<div>
 		    	<div class="scheduleHolder">
 		    		<div class="timeSlots">
-			    		<div id="12to1AM"  class="timeSlot"></div>
-						<div id="1to2AM"   class="timeSlot"></div>
-						<div id="2to3AM"   class="timeSlot"></div>
-						<div id="3to4AM"   class="timeSlot"></div>
-						<div id="4to5AM"   class="timeSlot"></div>
-						<div id="5to6AM"   class="timeSlot"></div>
-						<div id="6to7AM"   class="timeSlot"></div>
-						<div id="7to8AM"   class="timeSlot"></div>
-				    	<div id="8to9AM"   class="timeSlot"></div>
-						<div id="9to10AM"  class="timeSlot"></div>
-						<div id="10to11AM" class="timeSlot"></div>
-						<div id="11to12AM" class="timeSlot"></div>
-						<div id="12to1PM"  class="timeSlot"></div>
-						<div id="1to2PM"   class="timeSlot"></div>
-						<div id="2to3PM"   class="timeSlot"></div>
-						<div id="3to4PM"   class="timeSlot"></div>
-						<div id="4to5PM"   class="timeSlot"></div>
-						<div id="5to6PM"   class="timeSlot"></div>
-						<div id="6to7PM"   class="timeSlot"></div>
-						<div id="7to8PM"   class="timeSlot"></div>
-						<div id="8to9PM"   class="timeSlot"></div>
-						<div id="9to10PM"  class="timeSlot"></div>
-						<div id="10to11PM" class="timeSlot"></div>
-						<div id="11to12AM" class="timeSlot"></div>
+			    		<div time="0"  class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="1"  class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="2"  class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="3"  class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="4"  class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="5"  class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="6"  class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="7"  class="timeSlot" data-bind="click: filterEmployees"></div>
+				    	<div time="8"  class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="9"  class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="10" class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="11" class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="12" class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="13" class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="14" class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="15" class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="16" class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="17" class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="18" class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="19" class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="20" class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="21" class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="22" class="timeSlot" data-bind="click: filterEmployees"></div>
+						<div time="23" class="timeSlot" data-bind="click: filterEmployees"></div>
 					</div>
-					<div class="employeeSchedules" data-bind="foreach: employees">
-						<div>
-							<div data-bind="text: name"></div>
+					<div class="employeeSchedules" data-bind="foreach: schedule">
+						<div data-bind="style: {width: endOffset, left: startOffset, top: level, overflow: 'hidden'}">
+							<div data-bind="text: shortName"></div>
 						</div>
 					</div>
 				</div>
@@ -91,8 +91,33 @@
     	</div>
     	<div class="employees" data-bind="foreach: employees">
     		<div class="employee">
-    			<div class="name" data-bind="text: fullName, click: $root.toggleEmployee"></div>
-    			<div class="details" data-bind="text: department"></div>
+    			<div class="name">
+    				<span data-bind="click: $root.toggleEmployee">
+    					<i class="icon-plus icon-white"></i>
+    					<span data-bind="text: fullName"></span>
+    				</span>
+    				<button class="btn btn-mini pull-right" data-bind="click: $root.addEmployee">
+    					Add
+    				</button>
+    			</div>
+    			<div>
+    				<div class="details">
+    					 <div class="department">
+    					 	<span>Department</span>
+    					 	<span data-bind="text: department"></span>
+    					 </div>
+    					 <div class="available">
+    					 	<div><strong>Available Times:</strong></div>
+    					 	<div>
+    					 		<span>Start</span>
+    					 		<span data-bind="text: start"></span>
+    					 	</div>
+    					 	<div>
+    					 		<span>End</span>
+    					 		<span data-bind="text: end"></span>
+    					 	</div>
+    					 </div>
+    				</div>
     		</div>
     	</div>
     </div>
