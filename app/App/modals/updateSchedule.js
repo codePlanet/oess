@@ -11,7 +11,7 @@ define(function(require) {
 	/**********************************************************************************************
 	 * Constructor
 	 *********************************************************************************************/
-	var Order = function(schedule, title, options) {
+	var Modal = function(schedule, title, options) {
 		self = this;								
 		this.schedule = schedule;
 		this.schedule.startTime(utils.getUITime(Date.parse(this.schedule.startTime())));
@@ -27,19 +27,19 @@ define(function(require) {
 	 * 
 	 * This method is called when the user clicks one of the buttons in the modal.
 	 *********************************************************************************************/
-	Order.prototype.selectOption = function(dialogResult) {
+	Modal.prototype.selectOption = function(dialogResult) {
 		// Close modal		
 		this.modal.close(dialogResult);
 	};
 	
-	Order.prototype.getDepartments  = function() {
+	Modal.prototype.getDepartments  = function() {
 		backend.getDepartments().success(function(data) {
 			self.departments(data);
 		});
 	}
 	
-	Order.defaultTitle = '';
-	Order.defaultOptions = ['Add', 'Cancel'];
+	Modal.defaultTitle = '';
+	Modal.defaultOptions = ['Add', 'Cancel'];
 	
-	return Order;	
+	return Modal;	
 });

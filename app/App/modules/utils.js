@@ -10,9 +10,7 @@ define(function(require) {
 	 *************************************************************************************************/
 	var system = require('durandal/system');
 	
-	function utils (parameters) {
-		// place attributes here
-	}
+	function utils (parameters) {}
 	
 	utils.prototype.monthString = function(month) {
 		switch(month) {
@@ -48,13 +46,36 @@ define(function(require) {
 		var end1   = Date.parse(e1.endTime());
 		var start2 = Date.parse(e2.startTime());
 		var end2   = Date.parse(e2.endTime());
-
+		
+		// Adjust for midnight end times
+		if(end1.getHours() == 0)
+			end1.add(1).days();
+		if(end2.getHours() == 0)
+			end2.add(1).days();
+		
+		// Compare times
 		if(start1.equals(end2) || start2.equals(end1))
 			return false;
 		if (start1.between(start2, end2) || start2.between(start1, end1))
 			return true;
 			
 		return false;
+	}
+	
+	utils.prototype.getDBDate = function(date) {
+		return Date.parse(date).toString('yyyy-MM-dd');
+	}
+	
+	utils.prototype.getUIDate = function(date) {
+		return Date.parse(date).toString('d/M/yyyy');
+	}
+	
+	utils.prototype.getDBTime = function(time) {
+		return Date.parse(time).toString('HH:mm:ss');
+	}
+	
+	utils.prototype.getUITime = function(time) {
+		return Date.parse(time).toString('h:mm tt');
 	}
 	
 	return utils;

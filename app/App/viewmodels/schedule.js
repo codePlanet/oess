@@ -10,7 +10,8 @@ define(function(require) {
 	var app = require('durandal/app');
 	var system = require('durandal/system');			// System logger
 	var custom = require('durandal/customBindings');	// Custom bindings
-	//var Backend = require('modules/moduleTemplate');	// Module
+	var Backend = require('modules/schedule');			// Module
+	var backend = new Backend();
 	var Structures = require('modules/structures');
 	var structures = new Structures();
 	var Utils = require('modules/utils');
@@ -24,6 +25,8 @@ define(function(require) {
 	var d = new Date().addMonths(1);
 	var scheduleDate = ko.observable(d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear());
 	var schedule = ko.observableArray([]);
+	var availableHours = ko.observableArray([]);
+	var originalEmployees = ko.observableArray([]);
 	var employees = ko.observableArray([]);
 
 	/*********************************************************************************************** 
@@ -55,7 +58,9 @@ define(function(require) {
 		scheduleDate: scheduleDate,
 		formattedDate: formattedDate,
 		schedule: schedule,
+		originalEmployees: originalEmployees,
 		employees: employees,
+		availableHours: availableHours,
 		/******************************************************************************************* 
 		 * Methods
 		 *******************************************************************************************/
@@ -73,38 +78,26 @@ define(function(require) {
 		// Loads when view is loaded
 		activate: function(data) {
 			self = this;
-			
+			// Clear Schedule
 			self.schedule([]);
-			
-			self.employees([
-				new structures.Employee({
-					first_name: 'Bobby',
-					last_name: 'Smith',
-					department: "Sales",
-					date: '2013-04-09',
-					start_time: '10:00:00',
-					end_time: '12:00:00',
-					level: 0
-				}),
-				new structures.Employee({
-					first_name: 'John',
-					last_name: 'Conner',
-					department: "Maintenance",
-					date: '2013-04-09',
-					start_time: '12:00:00',
-					end_time: '14:00:00',
-					level: 0
-				}),
-				new structures.Employee({
-					first_name: 'Betty',
-					last_name: 'Sue',
-					department: "Sales",
-					date: '2013-04-09',
-					start_time: '11:30:00',
-					end_time: '14:00:00',
-					level: 0
-				})
-			]);				
+			// Get employees available
+			return backend.getEmployees().success(function(data) {
+				var emps = $.map(data, function(item) { return new structures.Employee(item) });
+				self.employees(emps);
+				self.originalEmployees(emps);
+			// Get Available Hours
+			}).then(function() {
+				backend.getAvailableHours().success(function(h) {
+					var hours = $.map(h, function(item) { return new structures.AvailableHours(item) });
+					self.availableHours(hours);
+				});
+			// Get Schedules
+			}).then(function(){
+				backend.getSchedule().success(function(s) {
+					var scheds = $.map(s, function(item) { return new structures.Schedule(item) });
+					self.schedule(scheds);
+				});
+			});
 		},
 		toggleEmployee: function(data, el) {
 			// Toggle details
@@ -138,29 +131,91 @@ define(function(require) {
 			}
 		},
 		showSchedule: function(data) {
-			modal.showSchedule(data, "Add Employee").then(function(close) {
-				if(close.result == 'Add') {
-					// Add employee to schedule
-					system.log(data);
+			// Create new schedule to pass to modal
+			var d = new structures.Schedule();
+			// Set default values
+			d.startTime('12:00 AM');
+			d.endTime('12:00 AM');
+			d.departmentId(data.departmentId());
+			// Call modal
+			modal.showSchedule(d, "Add Employee").then(function(close) {
+				// Catch department not being entered
+				if(d.departmentId() == undefined)
+					d.departmentId(data.departmentId());
+				// If the user clicked "Add"
+				if(close == 'Add') {
+					// Add employee to schedule				
 					var s = new structures.Schedule({
 						first_name: data.firstName(),
 						last_name: data.lastName(),
-						department: data.department(),
-						start_time: data.startTime(),
-						end_time: data.endTime(),
+						employee_id: data.id(),
+						department_id: d.departmentId(),
+						date: utils.getDBDate(self.scheduleDate()),
+						start_time: d.startTime(),
+						end_time: d.endTime(),
 						level: 0
 					});
 					
-						// Level
-						$.each(schedule(), function(k, v) {
-							var overlap = utils.scheduleOverlap(s, v);
-							if(overlap && v.level() == s.level()) {
-								var level = parseInt(s.level());
-								level += 24;
-								s.level(level + "px");
-							}
-						});
-						schedule.push(s);	
+					// Convert dates
+					s.startTime(utils.getDBTime(s.startTime()));
+					s.endTime(utils.getDBTime(s.endTime()));
+					
+					// Sort schedules by level
+					var sorted = _.sortBy(schedule(), function(item) {
+						return parseInt(item.level());
+					})
+					
+					// Level
+					$.each(sorted, function(k, v) {
+						var overlap = utils.scheduleOverlap(s, v);
+						if(overlap && v.level() == s.level()) {
+							system.log('Increase level!');
+							var level = parseInt(s.level());
+							level += 24;
+							s.level(level + "px");
+						}
+					});
+					
+					// Add to database
+					backend.saveSchedule(s, 'add');
+					
+					// Add to Calendar
+					schedule.push(s);	
+				}
+			});
+		},
+		updateSchedule: function(data) {
+			var start = data.startTime();
+			var end = data.endTime();
+			modal.showSchedule(data, "Update Employee", ["Update", "Delete", "Cancel"]).then(function(close) {
+				// If the user clicked "Add"
+				if(close == 'Update') {					
+					// Convert dates
+					data.startTime(utils.getDBTime(data.startTime()));
+					data.endTime(utils.getDBTime(data.endTime()));
+					
+					// Level
+					data.level(0);
+					// Need to sort list for proper traversal
+					var sorted = _.sortBy(schedule(), function(item) {
+						return parseInt(item.level());
+					});
+					// Traverse schedule checking for overlap
+					$.each(sorted, function(k, v) {
+						var overlap = utils.scheduleOverlap(data, v);
+						if(overlap && v.level() == data.level() && v != data) {
+							var level = parseInt(data.level());
+							level += 24;
+							data.level(level + "px");
+						}
+					});
+					
+					// Add to database
+					backend.saveSchedule(data, 'update');	
+				}
+				else {
+					data.startTime(start);
+					data.endTime(end);
 				}
 			});
 		},
@@ -172,9 +227,37 @@ define(function(require) {
 			});
 			e.addClass('active');
 		},
+		// Filter Employee list based on hour clicked
 		filterEmployees: function(data, e) {
+			// Get Time clicked
 			e = $(e.currentTarget);
-			system.log(e.attr('time'));
+			var time = parseInt(e.attr('time'));
+			// Filter Employee List
+			var filtered = _.filter(originalEmployees(), function(item) {
+				// Grab id
+				var id = item.id();
+				// Get hours that match employee
+				var hours = _.filter(self.availableHours(), function(item) {
+					return id == item.employeeId();
+				});
+				// Look for match
+				var match = false;
+				$.each(hours, function(k, v) {				
+					// Get start and end times for employee
+					var start = parseInt(v.startTime());
+					var end = parseInt(v.endTime());
+					end = end == 0 ? 24 : end;
+					
+					// Check if the time is inbetween start and end
+					if(start <= time && time < end)
+						match = true;
+				});
+				return match;
+			});
+			self.employees(filtered);
+		},
+		resetEmployees: function() {
+			self.employees(self.originalEmployees());
 		}
 	};
 });

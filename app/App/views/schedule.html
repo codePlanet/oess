@@ -11,81 +11,80 @@
     </div>
     <div class="row-fluid">
     	<div class="span2">
-    <div id="scheduleDate" data-bind="value: scheduleDate, datepicker: true"></div>
-   	</div>
-   	<div class="span10">
-   		<h3 class="currentDate" data-bind="text: formattedDate"></h3>
-	    <div class="dailySchedule">
-	    	<div class="timesHolder">
-		   		<div class="times">
-		   			<div>12am</div>
-		   			<div>1am</div>
-		   			<div>2am</div>
-		   			<div>3am</div>
-		   			<div>4am</div>
-		   			<div>5am</div>
-		   			<div>6am</div>
-		   			<div>7am</div>
-		   			<div>8am</div>
-		   			<div>9am</div>
-		   			<div>10am</div>
-		   			<div>11am</div>
-		   			<div>12pm</div>
-		   			<div>1pm</div>
-		   			<div>2pm</div>
-		   			<div>3pm</div>
-		   			<div>4pm</div>
-		   			<div>5pm</div>
-		   			<div>6pm</div>
-		   			<div>7pm</div>
-		   			<div>8pm</div>
-		   			<div>9pm</div>
-		   			<div>10pm</div>
-		   			<div>11pm</div>
+    		<div id="scheduleDate" data-bind="value: scheduleDate, datepicker: true"></div>
+   		</div>
+   		<div class="span8">
+	   		<h2 class="departmentHeading">Department</h2>
+	   		<h4 class="currentDate" data-bind="text: formattedDate"></h4>
+		    <div class="dailySchedule">
+		    	<div class="timesHolder">
+			   		<div class="times">
+			   			<div>12am</div>
+			   			<div>1am</div>
+			   			<div>2am</div>
+			   			<div>3am</div>
+			   			<div>4am</div>
+			   			<div>5am</div>
+			   			<div>6am</div>
+			   			<div>7am</div>
+			   			<div>8am</div>
+			   			<div>9am</div>
+			   			<div>10am</div>
+			   			<div>11am</div>
+			   			<div>12pm</div>
+			   			<div>1pm</div>
+			   			<div>2pm</div>
+			   			<div>3pm</div>
+			   			<div>4pm</div>
+			   			<div>5pm</div>
+			   			<div>6pm</div>
+			   			<div>7pm</div>
+			   			<div>8pm</div>
+			   			<div>9pm</div>
+			   			<div>10pm</div>
+			   			<div>11pm</div>
+			   		</div>
 		   		</div>
-	   		</div>
-	   		<div>
-		    	<div class="scheduleHolder">
-		    		<div class="timeSlots">
-			    		<div time="0"  class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="1"  class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="2"  class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="3"  class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="4"  class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="5"  class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="6"  class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="7"  class="timeSlot" data-bind="click: filterEmployees"></div>
-				    	<div time="8"  class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="9"  class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="10" class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="11" class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="12" class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="13" class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="14" class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="15" class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="16" class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="17" class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="18" class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="19" class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="20" class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="21" class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="22" class="timeSlot" data-bind="click: filterEmployees"></div>
-						<div time="23" class="timeSlot" data-bind="click: filterEmployees"></div>
-					</div>
-					<div class="employeeSchedules" data-bind="foreach: schedule">
-						<div data-bind="style: {width: endOffset, left: startOffset, top: level, overflow: 'hidden'}">
-							<div data-bind="text: shortName"></div>
+		   		<div>
+			    	<div class="scheduleHolder">
+			    		<div class="timeSlots">
+				    		<div time="0"  class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="1"  class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="2"  class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="3"  class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="4"  class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="5"  class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="6"  class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="7"  class="timeSlot" data-bind="click: filterEmployees"></div>
+					    	<div time="8"  class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="9"  class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="10" class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="11" class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="12" class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="13" class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="14" class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="15" class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="16" class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="17" class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="18" class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="19" class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="20" class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="21" class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="22" class="timeSlot" data-bind="click: filterEmployees"></div>
+							<div time="23" class="timeSlot" data-bind="click: filterEmployees"></div>
+						</div>
+						<div class="employeeSchedules" data-bind="foreach: schedule">
+							<div data-bind="style: {width: endOffset, left: startOffset, top: level, overflow: 'hidden'}, 
+								 click: $root.updateSchedule">
+								<div data-bind="text: shortName"></div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+		    </div>
 	    </div>
-    </div></div>
-    <div class="employeeList">
-    	<div class="openClose">
-    		<a class="closed" href="#"><img src="../images/right_arrow.png" /></a>
-    		<a class="open" href="#"><img src="../images/left_arrow.png" /></a>
-    	</div>
+	    <div class="span2">
+	    	<div class="employeeList">
     	<div class="image">
     		<img src="../images/icons/person3.png" />
     	</div>
@@ -106,6 +105,11 @@
     					 	<span>Department</span>
     					 	<span data-bind="text: department"></span>
     					 </div>
+    					 <div class="position">
+    					 	<span>Position</span>
+    					 	<span data-bind="text: position"></span>
+    					 </div>
+    					 <!--
     					 <div class="available">
     					 	<div><strong>Available Times:</strong></div>
     					 	<div>
@@ -117,8 +121,13 @@
     					 		<span data-bind="text: end"></span>
     					 	</div>
     					 </div>
+    					 -->
     				</div>
+    			</div>
     		</div>
     	</div>
     </div>
+	    </div>
+    </div>
+    
 </div>
